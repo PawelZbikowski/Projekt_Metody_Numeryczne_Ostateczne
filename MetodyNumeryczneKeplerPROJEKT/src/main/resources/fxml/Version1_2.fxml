@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.ScatterChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" stylesheets="@../trajectories.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Code.KeplerController">
+   <children>
+      <MenuBar prefHeight="29.0" prefWidth="844.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Plik">
+            <items>
+              <MenuItem fx:id="menuItemSave" mnemonicParsing="false" onAction="#menuItemSavePressed" text="Zapis" />
+                  <MenuItem fx:id="menuItemClear" mnemonicParsing="false" onAction="#menuItemCleanPressed" text="Czyszczenie wykresu" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Wybór metody">
+               <items>
+                  <RadioMenuItem fx:id="radioMenuBisection" mnemonicParsing="false" text="Bisekcja">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="tg" />
+                     </toggleGroup>
+                  </RadioMenuItem>
+                  <RadioMenuItem fx:id="radioMenuRegulaFalsi" mnemonicParsing="false" text="Regula falsi" toggleGroup="$tg" />
+                  <RadioMenuItem fx:id="radioMenuFixedPointMethod" mnemonicParsing="false" text="Metoda punktu stałego" toggleGroup="$tg" />
+                  <RadioMenuItem fx:id="radioMenuNewton" mnemonicParsing="false" text="Metoda Newtona-Raphsona" toggleGroup="$tg" />
+                  <RadioMenuItem fx:id="radioMenuMetodaSiecznych" mnemonicParsing="false" text="Metoda siecznych" toggleGroup="$tg" />
+               </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <SplitPane dividerPositions="0.5" prefHeight="130.0" prefWidth="966.0" HBox.hgrow="ALWAYS">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="96.0" prefWidth="404.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="100.0" prefWidth="124.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="15.0" prefWidth="121.0" text="Odległość od Słońca [A.U.]">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <TextField fx:id="textFieldDistance" promptText="Wartość..." />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" layoutX="119.0" prefHeight="100.0" prefWidth="172.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="177.0" text="Długość obrotu [y - lata, d - dni]">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <TextField fx:id="textFieldRevolution" promptText="Wartość..." />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" layoutX="298.0" prefHeight="100.0" prefWidth="100.0">
+                           <children>
+                              <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="90.0" text="Ekscentryczność">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <TextField fx:id="textFieldEccentricity" promptText="Wartość..." />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" layoutX="404.0" prefHeight="100.0" prefWidth="191.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Label alignment="CENTER" text="Wartość względnego błędu przybliżenia ">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <TextField fx:id="textFieldSigmaA" promptText="Wartość..." />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fitHeight="602.0" fitWidth="595.0" layoutX="14.0" layoutY="-144.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../hqdefault.jpg" />
+                           </image>
+                           <viewport>
+                              <Rectangle2D height="500.0" width="500.0" />
+                           </viewport>
+                        </ImageView>
+                        <Button fx:id="btnDrawTrajectories" alignment="CENTER" layoutX="260.0" layoutY="33.0" mnemonicParsing="false" onAction="#buttonDrawPressed" prefHeight="25.0" prefWidth="75.0" scaleShape="false" text="Rysuj" AnchorPane.bottomAnchor="33.400000000000006" AnchorPane.leftAnchor="260.0" />
+                     </children></AnchorPane>
+              </items>
+            </SplitPane>
+         </children>
+      </HBox>
+      <ScatterChart fx:id="ScatterChart" prefHeight="511.0" prefWidth="966.0" title="Wykres trajektorii planet Układu Słonecznego" VBox.vgrow="ALWAYS">
+        <xAxis>
+          <NumberAxis animated="false" label="Odległość [A.U.]" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis label="Odległość [A.U.]" side="LEFT" />
+        </yAxis>
+      </ScatterChart>
+   </children>
+</VBox>
